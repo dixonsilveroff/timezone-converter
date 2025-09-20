@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timezone Converter</title>
+</head>
+<body>
+  <h2>Timezone Converter</h2>
+  <input type="datetime-local" id="inputTime">
+  <select id="fromTz">
+    <option value="America/New_York">Eastern Time</option>
+    <option value="Europe/London">London</option>
+  </select>
+  <select id="toTz">
+    <option value="UTC">UTC/GMT</option>
+    <option value="Europe/London">London</option>
+    <option value="Africa/Lagos">Lagos</option>
+  </select>
+  <button onclick="convert()">Convert</button>
+
+  <p id="output"></p>
+
+  <script>
+    function convert() {
+      let input = document.getElementById("inputTime").value;
+      let fromTz = document.getElementById("fromTz").value;
+      let toTz = document.getElementById("toTz").value;
+
+      let date = new Date(input);
+
+      // Interpret as if it's in the "from" timezone
+      let fromDate = new Date(date.toLocaleString("en-US", { timeZone: fromTz }));
+
+      // Convert to target timezone
+      let options = { timeZone: toTz, hour: '2-digit', minute: '2-digit', year: 'numeric', month: 'long', day: 'numeric' };
+      let converted = fromDate.toLocaleString("en-US", options);
+
+      document.getElementById("output").textContent = `Converted Time: ${converted}`;
+    }
+  </script>
+</body>
+</html>
